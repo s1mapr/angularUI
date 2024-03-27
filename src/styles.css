@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+}
+
+#main {
+  background-color: #dfe8e1;
+  font-family: -apple-system,BlinkMacSystemFont,Open Sans,Roboto,Helvetica Neue,Helvetica,sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+button , a {
+  background-color: #0d6efd;
+  border: none;
+
+  color: white !important;
+  text-align: center;
+  display: inline-block;
+}
+
+.nav-item a {
+  color: white !important;
+}
+
+.bg-wgr {
+  background-color: #5468ef !important;
+}
+
+.bg-gr {
+  background-color: rgb(14, 65, 235) !important;
+}
+
+.bg-pink {
+  background-color: #e9ecef !important;
+}
+
+.btn-danger {
+  background-color: #dc3545 !important;
+}
+

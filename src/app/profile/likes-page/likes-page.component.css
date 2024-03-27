@@ -1,0 +1,32 @@
+.manga-block {
+  display: block;
+  margin: 10px;
+  height: max-content;
+  overflow: hidden;
+}
+
+
+
+.manga-block .title-img {
+  float: left;
+  width: 210px;
+  height: 200px;
+  text-align: left;
+  padding: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.manga-block .rows .row {
+  float: left;
+  text-align: left;
+  padding: 6px 0 0;
+  margin-right: 6px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+

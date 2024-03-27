@@ -1,0 +1,127 @@
+<div class="px-2 py-2">
+  <div class="row g-1">
+
+    <div style="display: flex; flex-direction: row;">
+      <div class="custom-form col-6">
+        <label for="lastName" class="form-label mb-1">Виберіть головне фото</label>
+        <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+        <div>
+          <div class="custom-image-container-main">
+            <label id="add-img-label-main" for="add-single-img-main">+</label>
+            <input type="file" id="add-single-img-main" (change)="selectTitleImg($event);" accept="image/jpeg" />
+          </div>
+          <input type="file" id="image-input-main" name="photos" accept="image/jpeg" />
+        </div>
+      </div>
+
+      <div class="custom-form custom-form-img col-6">
+        <label for="lastName" class="form-label mb-1">Виберіть контент для вмісту</label>
+        <div class="custom-image-container">
+          <label id="add-img-label" for="add-single-img">+</label>
+          <input type="file" id="add-single-img" (change)="addNewFile($event)" accept="image/jpeg" />
+        </div>
+        <input type="file" id="image-input" name="photos" accept="image/jpeg" multiple />
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <label class="form-label mb-1">Оберіть тип</label>
+      <select *ngIf="allPossible" class="form-select form-select-lg" [(ngModel)]="type">
+        <option *ngFor="let t of allPossible.types">{{t.typeName}}</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6">
+      <label for="firstName" class="form-label mb-1">Назва публікації</label>
+      <input type="text" [(ngModel)]="titleName" class="form-control" id="firstName">
+    </div>
+
+    <div class="col-sm-6">
+      <label for="lastName" class="form-label mb-1">Оригінальний автор</label>
+      <input type="text" [(ngModel)]="originalAuthor" class="form-control" id="lastName">
+    </div>
+
+    <div class="col-12">
+      <label class="form-label mb-1">Опис</label>
+      <textarea style="height: 200px" [(ngModel)]="description" class="w-100"></textarea>
+    </div>
+    <div *ngIf="allPossible" class="mb-0">
+
+      <div *ngIf="allPossible.categories" class=" col-4 btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Список категорій
+        </button>
+        <ul class="w-100 dropdown-menu">
+          <li *ngFor="let cat of allPossible.categories" class="list-group-item d-flex justify-content-between"
+            style="border: none">
+            <div (change)="addToArr($event, cat, categories)">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminateCats"
+                name="categories">
+              <label class="form-check-label text-secondary" for="flexCheckIndeterminateCats">
+                {{cat.genre}}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!allPossible.categories" class="w-100 btn-group">
+        <button type="button" class="w-100 btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false">
+          Немає доступних категорій
+        </button>
+      </div>
+      <div *ngIf="allPossible.tags" class="col-4 btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Список тегів
+        </button>
+        <ul class="w-100 dropdown-menu">
+          <li *ngFor="let cat of allPossible.tags" class="list-group-item d-flex justify-content-between"
+            style="border: none">
+            <div (change)="addToArr($event, cat, tags)">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminateTags"
+                name="categories">
+              <label class="form-check-label text-secondary" for="flexCheckIndeterminateTags">
+                {{cat.tag}}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!allPossible.tags" class="w-100 btn-group">
+        <button type="button" class="w-100 btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false">
+          Немає доступних тегів
+        </button>
+      </div>
+      <div *ngIf="allPossible.serials" class="col-4 btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Список серій
+        </button>
+        <ul class="w-100 dropdown-menu">
+          <li *ngFor="let cat of allPossible.serials" class="list-group-item d-flex justify-content-between"
+            style="border: none">
+            <div (change)="addToArr($event, cat, serials)">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminateSerials"
+                name="categories">
+              <label class="form-check-label text-secondary" for="flexCheckIndeterminateSerials">
+                {{cat.serialName}}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!allPossible.serials" class="w-100 btn-group">
+        <button type="button" class="w-100 btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false">
+          Немає доступних серій
+        </button>
+      </div>
+    </div>
+
+    <div class="col-12" style="margin-top: 25px;">
+      <div class="alert alert-danger" *ngIf="titleNameEmpty">Title name cannot be empty</div>
+      <div class="alert alert-danger" *ngIf="descriptionEmpty">Description cannot be empty</div>
+      <div class="alert alert-danger" *ngIf="titleImageEmpty">Title image cannot be empty</div>
+      <div class="alert alert-danger" *ngIf="tagsEmpty">Tags list cannot be empty</div>
+      <div class="alert alert-danger" *ngIf="categoriesEmpty">Categories list cannot be empty</div>
+      <div class="alert alert-danger" *ngIf="contentImagesEmpty">Content images cannot be empty</div>
+      <button class="w-100 btn-lg" (click)="addPost()">Створити публікацію</button>
+    </div>
+  </div>
+</div>

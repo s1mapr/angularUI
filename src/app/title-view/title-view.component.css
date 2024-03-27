@@ -1,0 +1,111 @@
+.description {
+  /*background-color: #63c77f;*/
+  background-color: #63c77f;
+}
+
+button , a{
+  background-color: rgb(14, 65, 235);
+  border: none;
+
+  color: white;
+  text-align: center;
+  display: inline-block;
+}
+
+button:hover, a:hover {
+  background-color: #5468ef;
+}
+
+.left-bar {
+  margin: 20px;
+}
+
+.title-name {
+  font-size: 24px;
+}
+
+.right-bar {
+  display: block;
+  margin: 20px;
+  width: 75%;
+  overflow: hidden;
+}
+
+.panel-btns-tags-cats-inner {
+  display: flex;
+  width: 100%;
+  gap: 2px;
+}
+
+.cats-tags {
+  display: flex;
+}
+
+.start-read {
+  height: min-content;
+  width: max-content;
+  padding: 15px 32px;
+  font-size: 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.title {
+  font-size: 15px;
+  color: green;
+}
+
+.like {
+  border-radius: 0;
+  width: 200px;
+  padding: 15px 32px;
+  display: inline-block;
+}
+
+.start-read:hover {
+  cursor: pointer;
+}
+
+.panel-btns-tags-cats {
+  background-color: pink;
+  padding: 10px;
+}
+
+.comments {
+  margin-top: 30px;
+}
+
+.comment-from-user{
+  border: 1px solid green;
+  margin-top: 10px;
+  padding: 5px 30px ;
+  height: max-content;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-from-user:hover{
+  background-color: #63c77f;
+}
+
+.comment-inpt {
+  width: 100%;
+}
+
+.comment-inpt input, .comment-inpt button {
+  box-sizing: border-box;
+  height: 30px;
+  font-size: 16px;
+}
+
+.comment-inpt input {
+  width: 70%;
+}
+
+.comment-inpt button {
+  width: 30%;
+}
+
+.comment-from-user .user-img {
+  height: min-content !important;
+}

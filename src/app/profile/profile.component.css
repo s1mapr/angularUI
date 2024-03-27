@@ -1,0 +1,16 @@
+button {
+  background-color: rgb(14, 65, 235);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+.likes-inner {
+  font-size: 14px;
+}
+
+.bg-pink {
+  background-color: pink;
+}

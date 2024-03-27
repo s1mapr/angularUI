@@ -1,0 +1,42 @@
+<div *ngIf="subscriptions">
+  <div *ngFor="let sub of subscriptions">
+    <div class="card row">
+      <div class="manga-block d-flex">
+        <div class="col-md-2">
+          <a href="/profile-view/{{sub.author.id}}">
+            <img class="img-fluid rounded-start" [src]="sub.author.img64">
+          </a>
+        </div>
+        <div class="col-md-10">
+          <div class="card-body g-3">
+            <h4 class="card-title">
+              Нікнейм: {{sub.author.nickName}}
+            </h4>
+<!--            <p class="card-text">-->
+<!--              {{title.description}}-->
+<!--            </p>-->
+            <div class="row d-flex">
+              <div class="col-md-6">
+                <div class="card-text">
+                  <strong>Ім'я:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{sub.author.firstName}}</small>
+                </div>
+                <div class="card-text">
+                  <strong>Прізвище:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{sub.author.lastName}}</small>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <strong>Дата створення:</strong>
+                <small style="margin-left: 4px" class="text-muted">{{parseDate(sub.author.creationDate).toLocaleTimeString()}} {{parseDate(sub.author.creationDate).toLocaleDateString()}}</small>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

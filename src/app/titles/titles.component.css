@@ -1,0 +1,25 @@
+button {
+  background-color: rgb(14, 65, 235);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.card {
+  border: 0;
+}
+
+.manga-block {
+  border: 2px solid rgb(14, 65, 235);
+  display: block;
+  margin-bottom: 10px;
+  height: max-content;
+  overflow: hidden;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}

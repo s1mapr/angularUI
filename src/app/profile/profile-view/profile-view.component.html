@@ -1,0 +1,53 @@
+<div *ngIf="user" class="justify-content-center">
+  <div class="col-md-9 col-lg-9 mx-auto">
+    <img [src]="user.img64" alt="Admin" class="w-100 bg-wgr">
+
+    <div *ngIf="user.role == 'AUTHOR' && !isSubscribed" class="col-sm-12">
+      <button (click)="subscribe()" class="w-100 bg-warning">Ви не підписані на цього автора
+        <br>
+        <small>Оформити підписку?</small>
+      </button>
+    </div>
+
+    <div *ngIf="user.role == 'AUTHOR' && isSubscribed" class="col-sm-12">
+      <button (click)="unSubscribe()" class="w-100 bg-gr">
+        <strong>Ви вже підписані на цього автора</strong>
+        <br>
+        <small>Відключити підписку?</small>
+      </button>
+    </div>
+  </div>
+  <div class="col-md-9 col-lg-9 mx-auto" style="margin-top: 20px;">
+    <div *ngIf="!(user.publishedTitles && user.publishedTitles.length > 0)">
+      <a class="btn-lg w-100 bg-danger not-border-bottom">Користувач нічого не опублікував</a>
+    </div>
+    <div *ngIf=" user.publishedTitles && user.publishedTitles.length > 0">
+      <a class="btn-lg w-100 not-border-bottom">Публікаці створені користувачем</a>
+      <div class="col-12" *ngFor="let title of user.publishedTitles">
+        <div
+          class="row g-0  border rounded not-border-top overflow-hidden flex-md-row pb-1 mb-1 shadow-sm h-md-250 position-relative">
+          <div class="col p-2 likes-inner d-flex flex-column position-static">
+            <h4 class="mb-0">{{title.titleName}}</h4>
+            <div class="d-flex">
+              <span>оригінальний автор: </span>
+              <strong class="text-muted">{{title.originalAuthor}}</strong>
+            </div>
+            <div class="d-flex">
+              <span>дата створення: </span>
+              <div class="mb-1 text-muted" *ngIf="title.creationDate">{{parseDate(title.creationDate)}}</div>
+              <div class="mb-1 text-muted" *ngIf="!title.creationDate">[date parse error]</div>
+            </div>
+            <textarea style="border: 0" class="w-100" disabled>{{title.description}}</textarea>
+            <p class="card-text mb-auto">
+
+            </p>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img [src]="title.titleImg" alt="" class="bd-placeholder-img" width="100">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

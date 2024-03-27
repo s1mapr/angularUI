@@ -1,0 +1,199 @@
+<div *ngIf="user" class="justify-content-center">
+  <div class="col-md-9 col-lg-9 mx-auto">
+    <img [src]="user.img64" alt="Admin" class="w-100 bg-wgr">
+
+    <div class="mt-1">
+      <div *ngIf="user.role == 'USER'" class="row g-0">
+        <button (click)="beAuthorRequest()" class="btn-lg w-100 bg-danger not-border-bottom">Ви не маєте прав автора<br>
+          <small>Натисність, щоб відправити запит</small></button>
+      </div>
+      <div *ngIf="user.role == 'PRE_AUTHOR'" class="row g-0">
+        <button (click)="beSimpleUserRequest()" class="btn-lg w-100 bg-warning not-border-bottom">
+          Запит перевіряють адміністратори... <br> <small> Відмінити?</small></button>
+      </div>
+      <div *ngIf="user.role == 'AUTHOR'" class="row g-0">
+        <button (click)="beSimpleUserRequest()" class="btn-lg w-100 bg-gr not-border-bottom">У вас є права автора, ви можете робити публікації<br> <small> Відмінити?</small></button>
+      </div>
+    </div>
+
+    <div class="row g-0 p-2 bg-wgr">
+      <div class="col-sm-6">
+        <strong class="title" style="color: black;">Ім'я</strong>
+        <input type="text" class="form-control p-1" id="firstName"
+               placeholder="{{user.firstName}}" disabled value="" required="">
+      </div>
+
+      <div class="col-sm-6">
+        <strong class="title" style="color: black;">Прізвище</strong>
+        <input type="text" class="form-control p-1" id="lastName" placeholder="{{user.lastName}}"
+               disabled value="" required="">
+      </div>
+
+      <div class="col-sm-6">
+        <strong class="title" style="color: black;">Нікнейм</strong>
+        <div class="input-group has-validation">
+          <input type="text" class="form-control p-1" id="username"
+                 placeholder="{{user.nickName}}" disabled>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <strong class="title" style="color: black;">Роль</strong>
+        <input type="text" class="form-control p-1" id="role" placeholder="{{user.role}}"
+               disabled value="">
+      </div>
+
+
+      <div class="col-sm-12">
+        <strong class="title" style="color: black;">Email
+        </strong>
+        <input type="email" class="form-control p-1" id="email" placeholder="{{user.email}}"
+               disabled>
+      </div>
+
+      <div class="col-sm-12">
+        <strong class="title" style="color: black;">Дата реєстрації
+        </strong>
+        <input type="text" class="form-control p-1" id="date" placeholder="{{parseDate(user.creationDate)}}" disabled>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="col-md-9 col-lg-9 mx-auto" style="margin-top: 20px;">
+
+    <div *ngIf="!(commentedTitles && commentedTitles.length > 0)">
+      <a class="btn-lg bg-danger w-100 not-border-bottom">Ви ще нічого не прокоментували</a>
+    </div>
+    <div *ngIf="commentedTitles && commentedTitles.length > 0">
+      <a class="btn-lg w-100 not-border-bottom" routerLink="/user-comments">Переглянути прокоментовані публікації</a>
+      <div class="col-12" *ngFor="let title of commentedTitles">
+        <div
+          class="row g-0  border rounded not-border-top overflow-hidden flex-md-row mb-1 shadow-sm h-md-250 position-relative">
+          <div class="col p-2 likes-inner d-flex flex-column position-static">
+            <h4 class="mb-0">{{title.titleName}}</h4>
+            <div class="d-flex">
+              <span>Оригінальний автор: </span>
+              <strong class="text-muted">{{title.originalAuthor}}</strong>
+            </div>
+            <div class="d-flex">
+              <span>Дата створення: </span>
+              <div class="mb-1 text-muted" *ngIf="title.creationDate">{{parseDate(title.creationDate)}}</div>
+              <div class="mb-1 text-muted" *ngIf="!title.creationDate">[date parse error]</div>
+            </div>
+            <textarea style="border: 0" class="w-100" disabled>{{title.description}}</textarea>
+            <p class="card-text mb-auto">
+
+            </p>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img [src]="title.titleImg" alt="" class="bd-placeholder-img" width="100">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="!(subscriptions && subscriptions.length > 0)">
+      <a class="btn-lg bg-danger w-100 not-border-bottom">У вас немає підписок</a>
+    </div>
+    <div *ngIf="subscriptions && subscriptions.length > 0">
+      <a class="btn-lg w-100 not-border-bottom" routerLink="/user-subscriptions">Переглянути підписки</a>
+      <div class="col-12" *ngFor="let sub of subscriptions">
+        <div
+          class="row flex-column g-0 px-3 border rounded not-border-top overflow-hidden flex-md-row mb-1 shadow-sm h-md-250 position-relative">
+          <div class="col-auto d-none d-lg-block">
+            <a style="background: none;" href="/profile-view/{{sub.authorId}}">
+              <img [src]="sub.author.img64" alt="" class="bd-placeholder-img" width="30">
+            </a>
+          </div>
+
+          <div class="col p-1 likes-inner d-flex flex-column position-static">
+            <div class="row">
+              <div class="col-9 d-flex">
+                <a style="background: none; " href="/profile-view/{{sub.authorId}}">
+                  <span class="title" style="color: blue;">[{{sub.author.nickName}}]</span>
+                </a>
+              </div>
+              <div class="col-3 d-flex">
+                <div class="mb-1 text-muted title"
+                     *ngIf="sub.author.creationDate">
+                  {{parseDate(sub.author.creationDate).toLocaleTimeString()}} {{parseDate(sub.author.creationDate).toLocaleDateString()}}
+                </div>
+                <div class="mb-1 text-muted title" *ngIf="!sub.author.creationDate">[date parse error]</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="!(likedTitles && likedTitles.length > 0)">
+      <a class="btn-lg bg-danger w-100 not-border-bottom">У вас немає вподобаних публікацій</a>
+    </div>
+    <div *ngIf="likedTitles && likedTitles.length > 0">
+      <a class="btn-lg w-100 not-border-bottom" routerLink="/liked-titles">Переглянути вподобані публікації</a>
+      <div class="col-12" *ngFor="let title of likedTitles">
+        <div
+          class="row g-0  border rounded  not-border-top overflow-hidden flex-md-row mb-1 shadow-sm h-md-250 position-relative">
+          <div class="col p-2 likes-inner d-flex flex-column position-static">
+            <h4 class="mb-0">{{title.titleName}}</h4>
+            <div class="d-flex">
+              <span>Оригінальний автор: </span>
+              <strong class="text-muted">{{title.originalAuthor}}</strong>
+            </div>
+            <div class="d-flex">
+              <span>Дата створення: </span>
+              <div class="mb-1 text-muted" *ngIf="title.creationDate">{{parseDate(title.creationDate)}}</div>
+              <div class="mb-1 text-muted" *ngIf="!title.creationDate">[date parse error]</div>
+            </div>
+            <textarea style="border: 0" class="w-100" disabled>{{title.description}}</textarea>
+            <p class="card-text mb-auto">
+
+            </p>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img [src]="title.titleImg" alt="" class="bd-placeholder-img" width="100">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="!(publishedTitles && publishedTitles.length > 0)">
+      <a class="btn-lg bg-danger w-100 not-border-bottom">Ви ще нічого не опублікували</a>
+    </div>
+    <div *ngIf="publishedTitles && publishedTitles.length > 0">
+      <a class="btn-lg w-100 not-border-bottom" routerLink="/published-titles">Переглянути опубліковане</a>
+      <div class="col-12" *ngFor="let title of publishedTitles">
+        <div
+          class="row g-0  border rounded  not-border-top overflow-hidden flex-md-row mb-1 shadow-sm h-md-250 position-relative">
+          <div class="col p-2 likes-inner d-flex flex-column position-static">
+            <h4 class="mb-0">{{title.titleName}}</h4>
+            <div class="d-flex">
+              <span>Оригінальний автор: </span>
+              <strong class="text-muted">{{title.originalAuthor}}</strong>
+            </div>
+            <div class="d-flex">
+              <span>Дата створення: </span>
+              <div class="mb-1 text-muted" *ngIf="title.creationDate">{{parseDate(title.creationDate)}}</div>
+              <div class="mb-1 text-muted" *ngIf="!title.creationDate">[date parse error]</div>
+            </div>
+            <textarea style="border: 0" class="w-100" disabled>{{title.description}}</textarea>
+            <p class="card-text mb-auto">
+
+            </p>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img [src]="title.titleImg" alt="" class="bd-placeholder-img" width="100">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="btn-lg w-100" routerLink="/edit-profile">Змінити дані профілю</a>
+
+  </div>
+</div>

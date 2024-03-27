@@ -1,0 +1,65 @@
+<div *ngIf="titles">
+  <div *ngFor="let title of titles">
+    <div class="card row" style="margin-top: 20px;">
+      <div class="manga-block d-flex">
+        <div class="col-md-2">
+          <a href="/titles/{{title.id}}">
+            <img class="img-fluid rounded-start" [src]="title.titleImg">
+          </a>
+        </div>
+        <div class="col-md-10">
+          <div class="card-body g-3">
+            <h4 class="card-title">
+              Назва: {{title.titleName}}
+            </h4>
+            <p class="card-text">
+              Опис: {{title.description}}
+            </p>
+            <div class="row d-flex">
+              <div class="col-md-6">
+                <div class="col-md-12 d-flex">
+                  <strong>Категорії:</strong>
+                  <span *ngIf="title.categories.length === 0">No categories((</span>
+                  <small style="margin-left: 3px" class="text-muted"
+                         *ngFor="let cat of title.categories">{{cat.genre}}</small>
+                </div>
+
+                <div class="col-md-12  d-flex">
+                  <strong>Теги:</strong>
+                  <span *ngIf="title.tags.length === 0">No categories((</span>
+                  <small style="margin-left: 3px" class="text-muted" *ngFor="let cat of title.tags">{{cat.tag}}</small>
+                </div>
+
+                <div class="col-md-12  d-flex">
+                  <strong>Серії:</strong>
+                  <span class="text-danger" *ngIf="title.serials.length === 0">No serials</span>
+                  <small style="margin-left: 3px" class="text-muted"
+                         *ngFor="let cat of title.serials">{{cat.serialName}}</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card-text">
+                  <strong>Лайків:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{title.content.likesCount}}</small>
+                </div>
+                <div class="card-text">
+                  <strong>Переглядів:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{title.content.views}}</small>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <strong>Дата створення:</strong>
+                <small style="margin-left: 4px" class="text-muted">{{parseDate(title.creationDate)}}</small>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

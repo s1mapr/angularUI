@@ -1,0 +1,37 @@
+<section class="text-center">
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        border: 0;
+        ">
+    <div class="card-body py-5 px-md-5">
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8" style="text-align: start;">
+          <h2 class="fw-bold mb-3" style="text-align: center;">Авторизація</h2>
+          <div>
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example3">Ваш email</label>
+
+              <input id="form3Example3" class="form-control" [(ngModel)]="email" type="email" placeholder="">
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Ваш пароль</label>
+
+              <input id="form3Example4" class="form-control" #pass [(ngModel)]="password" type="password"
+                placeholder="">
+            </div>
+
+            <div style="color: red" *ngIf="emptyEmail">Email field cannot be empty</div>
+            <div style="color: red" *ngIf="emptyPass">Password field is empty</div>
+            <button (click)="submit()" class="btn btn-primary form-outline w-100 btn-block mb-4" style="height: 50px;">
+              Ввійти
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

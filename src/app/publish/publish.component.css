@@ -1,0 +1,100 @@
+.panel {
+  margin: 0 20px;
+  width: 100%;
+}
+
+.info {
+  margin: 0 20px;
+
+}
+
+.info input {
+  height: 30px;
+  width: 100%;
+}
+
+.main-pub {
+  padding: 20px;
+}
+
+.all-possible-content-panel {
+  border-radius: 5px;
+  display: flex;
+}
+
+.panel input {
+  margin-top: 3px;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.10em;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+}
+
+* {
+  font-size: 20px;
+}
+
+button, a {
+  background-color: rgb(14, 65, 235);
+  border: none;
+
+  color: white;
+  text-align: center;
+  display: inline-block;
+}
+
+.addTitle {
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 100%;
+  height: 40px;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.errMsg {
+  margin-top: 20px;
+  color: red;
+  text-align: center;
+}
+
+.custom-form input {
+  opacity: 0;
+  height: 0;
+
+}
+
+.custom-image-container, .custom-image-container-main {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.custom-image-container img{
+  width: 40%;
+}
+
+.custom-form-img{
+  width: 40%;
+}
+
+.custom-image-container label, .custom-image-container-main label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150%;
+  cursor: pointer;
+  width: 50%;
+  height: 220px;
+  border: solid 1px black;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.custom-image-container-main label {
+  width: 320px;
+  height: 420px;
+}

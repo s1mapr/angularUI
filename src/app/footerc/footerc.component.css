@@ -1,0 +1,10 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: pink;
+  justify-content:space-between;
+  font-size: 13px;
+}
+

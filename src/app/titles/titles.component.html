@@ -1,0 +1,151 @@
+<div class="p-3 pt-4 pb-5">
+  <div class="row justify-content-center">
+    <div class="card col-md-9 col-lg-9">
+      <div class="row mb-1">
+        <form>
+          <button class="btn btn-lg w-100 form-control" *ngIf="hideCats" (click)="hideCats = !hideCats">Показати
+            категорії
+          </button>
+          <button class="btn btn-lg w-100 form-control" *ngIf="!hideCats" (click)="hideCats = !hideCats">Сховати
+            категорії
+          </button>
+        </form>
+      </div>
+      <div [ngStyle]="{'display': hideCats ? 'none' : 'block'}" *ngIf="allPossible" class="panel">
+        <div class="form-check border border-success" *ngFor="let cat of allPossible.categories">
+          <div (change)="addToArr($event, cat, categories)">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" name="categories">
+            <label class="form-check-label" for="flexCheckIndeterminate">
+              {{cat.genre}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <form>
+          <button class="btn btn-lg w-100 form-control" *ngIf="hideTags" (click)="hideTags = !hideTags">Показати
+            теги
+          </button>
+          <button class="btn btn-lg w-100 form-control" *ngIf="!hideTags" (click)="hideTags = !hideTags">Сховати
+            теги
+          </button>
+        </form>
+      </div>
+      <div [ngStyle]="{'display': hideTags ? 'none' : 'block'}" *ngIf="allPossible" class="panel">
+        <div class="form-check border border-success" *ngFor="let tag of allPossible.tags">
+          <div (change)="addToArr($event, tag, tags)">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate1" name="categories">
+            <label class="form-check-label" for="flexCheckIndeterminate">
+              {{tag.tag}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <form action="">
+          <button class="btn btn-lg w-100 form-control" *ngIf="hideSerials"
+            (click)="hideSerials = !hideSerials">Показати
+            серії (покоління, тощо)
+          </button>
+          <button class="btn btn-lg w-100 form-control" *ngIf="!hideSerials"
+            (click)="hideSerials = !hideSerials">Сховати
+            серії (покоління, тощо)
+          </button>
+        </form>
+      </div>
+      <div [ngStyle]="{'display': hideSerials ? 'none' : 'block'}" *ngIf="allPossible" class="panel">
+        <div class="form-check border border-success" *ngFor="let ser of allPossible.serials">
+          <div (change)="addToArr($event, ser, serials)">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate2" name="categories">
+            <label class="form-check-label" for="flexCheckIndeterminate">
+              {{ser.serialName}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="d-flex row g-1">
+        <div class="w-50">
+          <button class="btn btn-lg form-control" (click)="reset()">Скинути фільтр</button>
+        </div>
+        <div class="w-50">
+          <button class="btn btn-lg form-control" (click)="filterList()">Пошук</button>
+        </div>
+      </div>
+    </div>
+    <div class="card col-md-9 col-lg-9" style="margin-top: 25px;">
+      <div *ngFor="let title of titles" class="row g-1 manga-block d-flex" style=" border-radius: 12px;">
+        <div class="col-md-4">
+          <a href="/titles/{{title.id}}">
+            <img class="img-fluid rounded-start" [src]="title.titleImg">
+          </a>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body g-3">
+            <h4 class="card-title">
+              Назва: {{title.titleName}}
+            </h4>
+            <p class="card-text">
+              Опис: {{title.description}}
+            </p>
+            <div class="row">
+
+              <div class="row" style="display: flex; flex-direction: column;">
+                <div class="col-md-12">
+                  <strong>Категорії: </strong>
+                  <div style="display: flex; flex-direction: row;">
+                    <span *ngIf="title.categories.length === 0">Немає категорій.</span>
+                    <small class="text-muted" *ngFor="let cat of title.categories; let last = last">
+                      {{cat.genre}}
+                      <span *ngIf="!last">&nbsp;</span>
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <strong>Теги: </strong>
+                  <div style="display: flex; flex-direction: row;">
+                    <span *ngIf="title.tags.length === 0">Немає тегів.</span>
+                    <small class="text-muted" *ngFor="let cat of title.tags; let last = last">
+                      {{cat.tag}}
+                      <span *ngIf="!last">&nbsp;</span>
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <strong>Серії :</strong>
+                  <div style="display: flex; flex-direction: row;">
+                    <span class="text-danger" *ngIf="title.serials.length === 0">Немає серій.</span>
+                    <small class="text-muted" *ngFor="let cat of title.serials; let last = last">
+                      {{cat.serialName}}
+                      <span *ngIf="!last">&nbsp;</span>
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <strong>Дата створення:</strong>
+                <small class="text-muted">{{getCreatingDate(title.creationDate)}}</small>
+              </div>
+              <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div class="card-text">
+                  <strong>Лайків:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{title.content.likesCount}}</small>
+                </div>
+                <div class="card-text">
+                  <strong>Переглядів:</strong>
+                  <small style="margin-left: 4px" class="text-muted">{{title.content.views}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

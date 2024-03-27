@@ -1,0 +1,187 @@
+<style>
+  .custom-image-container,
+  .custom-image-container-main {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+  }
+
+  .custom-image-container label,
+  .custom-image-container-main label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    cursor: pointer;
+    height: 650px !important;
+    border: solid 1px black;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+
+  .custom-image-container-main label {
+    width: 320px;
+    height: 550px;
+    ;
+  }
+</style>
+
+<div class="text-center">
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        border: 0;
+        ">
+    <div class="card-body py-5 px-md-5" style="border: 0">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8" style="text-align: start;">
+          <h2 class="fw-bold mb-3" style="text-align: center;">Створіть новий профіль</h2>
+          <form>
+
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example3">Ваш нікнейм</label>
+              <input id="form3Example6" class="form-control" name="name" [(ngModel)]="name" type="text" placeholder="">
+            </div>
+
+            <div class="form-outline">
+              <label class="form-label" for="form3Example1">Ім'я (необов'язково)</label>
+              <input id="form3Example1" class="form-control" name="firstName" [(ngModel)]="firstName" type="text"
+                placeholder="">
+            </div>
+            <div class="form-outline ">
+              <label class="form-label" for="form3Example2">Прізвище (необов'язково)</label>
+              <input id="form3Example2" class="form-control" name="lastName" [(ngModel)]="lastName" type="text"
+                placeholder="">
+            </div>
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example3">Ваш email</label>
+              <input id="form3Example3" class="form-control" name="email" [(ngModel)]="email" type="email"
+                placeholder="">
+            </div>
+
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Придумайте пароль</label>
+
+              <input id="form3Example4" class="form-control" [(ngModel)]="password" #pass name="password"
+                type="password" placeholder="">
+            </div>
+
+            <div class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Повторіть пароль</label>
+
+              <input id="form3Example5" class="form-control" type="password" #passRep name="password-rep"
+                placeholder="">
+            </div>
+            <div class="custom-form" style="margin-top: 20px;">
+              <label>Оберіть фото профілю</label>
+              <div class="custom-image-container">
+                <label id="add-img-label" for="add-single-img">+</label>
+                <input type="file" id="add-single-img" name="img" (change)="selectTitleImg($event)"
+                  accept="image/jpeg" />
+              </div>
+              <input type="file" id="image-input" name="photos" accept="image/jpeg" multiple />
+              <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+            </div>
+
+
+            <div class="alert alert-danger" *ngIf="emptyPass">Password must contains at least 6 symbols</div>
+            <div class="alert alert-danger" *ngIf="emptyEmail">Email field cannot be empty</div>
+            <div class="alert alert-danger" *ngIf="emptyName">Name field cannot be empty</div>
+            <div class="alert alert-danger" *ngIf="userExist">User already exist</div>
+            <div class="alert alert-danger" [innerHtml]='msg' *ngIf="msg"></div>
+            <button (click)="validation()" class="btn bg-gr form-outline w-100 btn-block mb-4">
+              Створити!
+            </button>
+            <button routerLink="/do-login" class="btn bg-gr form-outline w-100 btn-block mb-4">Вже маєте профіль?
+              Авторизуйтесь
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--<div class="auth-form">-->
+<!--  <br>-->
+<!--  <div class="panel1">-->
+<!--    <div class="auth-form-inner">-->
+<!--      <div class="title">-->
+<!--        <div>Enter your email</div>-->
+<!--        <input-->
+<!--          [(ngModel)]="email"-->
+<!--          type="email"-->
+<!--          placeholder="">-->
+<!--      </div>-->
+<!--      <div class="title">-->
+<!--        <div>Enter your nickname</div>-->
+<!--        <input-->
+<!--          [(ngModel)]="name"-->
+<!--          type="text"-->
+<!--          placeholder="">-->
+<!--      </div>-->
+<!--      <div class="title">-->
+<!--        <div>Enter your lastname</div>-->
+<!--        <input-->
+<!--          [(ngModel)]="lastName"-->
+<!--          type="text"-->
+<!--          placeholder="">-->
+<!--      </div>-->
+<!--      <div class="title">-->
+<!--        <div>Enter your firstName</div>-->
+<!--        <input-->
+<!--          [(ngModel)]="firstName"-->
+<!--          type="text"-->
+<!--          placeholder="">-->
+<!--      </div>-->
+<!--      <div class="title">-->
+<!--        <div>Enter password</div>-->
+<!--        <input #pass-->
+<!--               [(ngModel)]="password"-->
+<!--               type="password"-->
+<!--               placeholder="">-->
+<!--      </div>-->
+<!--      <div class="title">-->
+<!--        <div>Enter password again</div>-->
+<!--        <input #passRep-->
+<!--               type="password"-->
+<!--               placeholder="">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <br>-->
+<!--  <div class="panel1">-->
+<!--    <br>-->
+<!--    <div class="title">-->
+<!--      <div>Add your profile photo</div>-->
+<!--    </div>-->
+<!--    <div class="custom-form">-->
+<!--      <div class="custom-image-container">-->
+<!--        <label id="add-img-label" for="add-single-img">+</label>-->
+<!--        <input type="file" id="add-single-img" (change)="selectTitleImg($event)" accept="image/jpeg"/>-->
+<!--      </div>-->
+<!--      <input type="file" id="image-input" name="photos" accept="image/jpeg" multiple/>-->
+<!--      <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <br>-->
+<!--  <div class="auth-btns">-->
+<!--    <div>-->
+<!--      <button (click)="validation()">Create new user!!!</button>-->
+<!--    </div>-->
+<!--    <div style="margin-top: 5px">-->
+<!--      <button routerLink="/do-login">Have profile? Login:)</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div style="color: red" *ngIf="incorrectPass">Password are not same! Try again.</div>-->
+<!--  <div style="color: red" *ngIf="emptyPass">Password must contains at least 6 symbols</div>-->
+<!--  <div style="color: red" *ngIf="emptyEmail">Email field cannot be empty</div>-->
+<!--  <div style="color: red" *ngIf="emptyName">Name field cannot be empty</div>-->
+<!--  <div style="color: red" *ngIf="userExist">User already exist</div>-->
+
+<!--  <br>-->
+
+<!--</div>-->
